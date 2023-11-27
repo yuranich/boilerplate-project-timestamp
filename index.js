@@ -33,11 +33,13 @@ app.get("/api/:date?", function (req, res) {
   let date = new Date();
   const dateParam = params.date;
   if (dateParam) {
-    try {
-      const num = Number(dateParam);
-      date = num ? new Date(num) : new Date(dateParam);
-    } catch {
+    const num = Number(dateParam);
+    date = num ? new Date(num) : new Date(dateParam);
+
+    console.log("date is: ", date);
+    if (date == "Invalid Date") {
       res.status(400).json({ error: "Invalid Date" });
+      return;
     }
   }
 
